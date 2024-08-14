@@ -2,13 +2,18 @@
   "name": "4",
   "version": "1.0.0",
   "description": "final task soal nomor 4",
-  "main": "A.js",
+  "main": "B.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon B.js"
   },
   "author": "bahrul",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "hbs": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
