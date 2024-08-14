@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function hitungVoucher(voucherName, totalPrice) {
+            if ( voucherName == "DumbwaysJos") {
+                let discount;
+                let price;
+                let kembalian;
+                
+                if ( totalPrice >= 50000 ) {
+                    let earlyDiscount = totalPrice * (21.5 / 100);
+                    let maxDiscount = 20000;
+
+                    if (earlyDiscount > maxDiscount) {
+                        discount = maxDiscount;
+                    } else {
+                        discount = earlyDiscount;
+                    };
+
+                } else {
+                    discount = 0;
+                };
+
+                price = totalPrice - discount;
+                kembalian = totalPrice - price;
+
+                return (`- Uang yang harus dibayar : Rp.${price} - Diskon : Rp.${discount} - Kembalian : Rp.${kembalian}`);
+
+            } else if ( voucherName == "DumbwaysMantap") {
+                let discount;
+                let price;
+                let kembalian;
+
+                if (totalPrice >= 80000) {
+                    let earlyDiscount = totalPrice * (30 / 100);
+                    let maxDiscount = 40000;
+
+                    if (earlyDiscount > maxDiscount) {
+                        discount = maxDiscount;
+                    } else {
+                        discount = earlyDiscount;
+                    }
+                } else {
+                    discount = 0;
+                };
+
+                price = totalPrice - discount;
+                kembalian = totalPrice - price;
+
+                return (`- Uang yang harus dibayar : Rp.${price} - Diskon : Rp.${discount} - Kembalian : Rp.${kembalian}`);
+
+            } else {
+                return "Voucher tidak ditemukan";
+            };
+        };
+
+        const DumbwaysJos = "DumbwaysJos";
+        const DumbwaysMantap = "DumbwaysMantap";
+
+        const voucher = hitungVoucher(DumbwaysJos, 150000);
+        console.log(voucher);
+    </script>
+</body>
+</html>
