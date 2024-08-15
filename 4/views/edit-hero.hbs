@@ -20,25 +20,25 @@
 
     {{!-- Content --}}
     <div class="max-w-screen-lg m-auto p-8">
-        <h1 class="text-white text-center text-lg font-semibold mt-4">ADD YOUR HERO</h1>
-        <form class="m-auto max-w-md mt-10" action="/add-hero" method="POST" enctype="multipart/form-data">
+        <h1 class="text-white text-center text-lg font-semibold mt-4">EDIT HERO</h1>
+        <form class="m-auto max-w-md mt-10" action="/edit-hero/{{data.id}}" method="POST" enctype="multipart/form-data">
             <div class="mb-5">
                 <label class="block text-white text-md mb-1" for="heroNameInput">Hero Name</label>
-                <input class="rounded-md w-full p-1.5" id="heroNameInput" name="heroName" type="text" required>
+                <input value="{{data.name}}" class="rounded-md w-full p-1.5" id="heroNameInput" name="heroName" type="text" required>
             </div>
             <div class="mb-5">
                 <label class="block text-white text-md mb-1" for="heroTypeInput">Hero Type</label>
                 <select class="rounded-md w-full p-1.5" id="heroTypeInput" name="heroType" type="text" required>
-                    {{#each data}}
+                    {{#each type}}
                         <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
             </div>
             <div class="mb-12">
                 <label class="block text-white text-md mb-1" for="photoInput">Photo</label>
-                <input class="bg-white rounded-md w-full p-1.5" id="photoInput" name="photo" type="file" required>
+                <input value="{{data.photo}}" class="bg-white rounded-md w-full p-1.5" id="photoInput" name="photo" type="file" required>
             </div>
-            <button type="submit" class="bg-orange-500 text-white py-2 rounded-md w-full">Add Hero</button>
+            <button type="submit" class="bg-orange-500 text-white py-2 rounded-md w-full">Edit Hero</button>
         </form>
     </div>
 </body>

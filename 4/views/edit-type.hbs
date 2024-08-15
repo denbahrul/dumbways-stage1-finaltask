@@ -21,25 +21,13 @@
     {{!-- Content --}}
     <div class="max-w-screen-lg m-auto p-8">
         <h1 class="text-white text-center text-lg font-semibold mt-4">ADD TYPE OF HERO</h1>
-        <form class="m-auto max-w-md mt-10" action="/add-type" method="POST">
+        <form class="m-auto max-w-md mt-10" action="/edit-type/{{data.id}}" method="POST">
             <div class="mb-8">
                 <label class="block text-white text-md mb-1" for="typeNameInput">Type Name</label>
-                <input class="rounded-md w-full p-1.5" id="typeNameInput" name="typeName" type="text" required>
+                <input value="{{data.name}}" class="rounded-md w-full p-1.5" id="typeNameInput" name="typeName" type="text" required>
             </div>
             <button type="submit" class="bg-orange-500 text-white py-2 rounded-md w-full">Add Type</button>
         </form>
-        <div class="mt-24 m-auto max-w-md">
-            <p class="text-white text-center text-lg font-semibold my-4">TYPE LIST</p>
-            {{#each data}}
-            <div class="w-full py-3 px-4 bg-slate-800 rounded-md mb-3 flex justify-between">
-                <p class="text-white">{{this.name}}</p>
-                <div class="flex gap-2">
-                    <a href="/edit-type/{{this.id}}" class="bg-orange-500 text-white text-sm py-1 px-3 rounded-md">Edit</a>
-                    <a href="/delete-type/{{this.id}}" class="bg-red-500 text-white text-sm py-1 px-3 rounded-md">Delete</a>
-                </div>
-            </div>
-            {{/each}}
-        </div>
     </div>
 </body>
 </html>

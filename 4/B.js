@@ -29,13 +29,20 @@ app.get('/login', renderLogin);
 app.get('/register', renderRegister);
 app.get('/add-hero', renderAddHero);
 app.get('/add-type', renderAddType);
+app.get('/hero-detail/:hero_id', renderDetail);
+app.get('/edit-hero/:hero_id', renderEditHero);
+app.get('/edit-type/:type_id', renderEditHero);
 
 app.post('/register', register);
 app.post('/login', login);
 app.post('/add-hero', upload.single('photo'), addHero);
 app.post('/add-type', addType);
+app.post('/edit-hero/:hero_id', upload.single('photo'), editHero);
+app.post('/edit-type/:type_id', editType);
 
 app.get('/logout', logout);
+app.get('/delete/:hero_id', deleteHero);
+app.get('/delete-type/:type_id', deleteType);
 
 // FUNCTION RENDER 
 // auth
@@ -75,11 +82,60 @@ async function renderAddHero(req, res) {
     isLogin ? res.render('add-hero', { isLogin, user, data: heroType}) : res.redirect('/login') ;
 };
 
-function renderAddType(req, res) {
-    const { isLogin, user } = req.session;
+async function renderAddType(req, res) {
+    try {
+        const { isLogin, user } = req.session;
 
-    isLogin ? res.render('add-type', { isLogin, user }) : res.redirect('/login'); 
+        const query = `SELECT * FROM type_tb`;
+        const heroType = await sequelize.query(query, {type: QueryTypes.SELECT});
+
+        isLogin ? res.render('add-type', { isLogin, user, data: heroType }) : res.redirect('/login'); 
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+async function renderDetail(req, res) {
+    try {
+        const id = req.params.hero_id;
+        const { isLogin, user } = req.session;
+
+        const query = `SELECT * FROM heroes_tb WHERE id=${id}`;
+        const hero = await sequelize.query(query, { type: QueryTypes.SELECT});
+
+        res.render("hero-detail", {
+            data: hero[0],
+            isLogin,
+            user
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
 }
+
+async function renderEditHero(req, res) {
+    const { isLogin, user} = req.session;
+    const id = req.params.hero_id;
+
+    const query = `SELECT * FROM type_tb`;
+    const heroType = await sequelize.query(query, {type: QueryTypes.SELECT});
+
+    const selectHero = `SELECT * FROM heroes_tb WHERE id='${id}'`;
+    const hero = await sequelize.query(selectHero, {type: QueryTypes.SELECT});
+
+    isLogin ? res.render('edit-hero', { isLogin, user, type: heroType, data: hero[0] }) : res.redirect('/login') ;
+};
+
+async function renderEditHero(req, res) {
+    const { isLogin, user} = req.session;
+    const id = req.params.type_id;
+
+    const query = `SELECT * FROM type_tb WHERE id='${id}'`;
+    const heroType = await sequelize.query(query, {type: QueryTypes.SELECT});
+
+    isLogin ? res.render('edit-type', { isLogin, user, data: heroType[0]}) : res.redirect('/login') ;
+};
 
 // FUNCTION LOGIC
 //auth
@@ -166,13 +222,77 @@ async function addType(req, res) {
     try {
         const name = req.body.typeName;
 
-        console.log(req.body);
-
         const query = `INSERT INTO type_tb (name) VALUES ('${name}')`;
         
         await sequelize.query(query, {type: QueryTypes.INSERT});
         
+        res.redirect('/add-type');
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+async function editHero(req, res) {
+    try {
+        const { heroName, heroType } = req.body;
+        const photo = req.file.filename;
+
+        const id = req.params.hero_id;
+        console.log(req.file);
+
+        const query = `UPDATE heroes_tb
+                        SET name = '${heroName}', type_id = '${heroType}', photo = '${photo}'
+                        WHERE id=${id}`
+    
+        await sequelize.query(query, {type: QueryTypes.UPDATE});
+    
+        res.redirect('/')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function deleteHero(req, res) {
+    try {
+        const id = req.params.hero_id;
+
+        const query = `DELETE FROM heroes_tb WHERE id=${id}`;
+
+        await sequelize.query(query, {type: QueryTypes.DELETE});
+    
         res.redirect('/');
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function editType(req, res) {
+    try {
+        const name = req.body.typeName;
+
+        const id = req.params.type_id;
+
+        const query = `UPDATE type_tb
+                        SET name = '${name}'
+                        WHERE id=${id}`
+    
+        await sequelize.query(query, {type: QueryTypes.UPDATE});
+    
+        res.redirect('/add-type')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function deleteType(req, res) {
+    try {
+        const id = req.params.type_id;
+
+        const query = `DELETE FROM type_tb WHERE id=${id}`;
+
+        await sequelize.query(query, {type: QueryTypes.DELETE});
+    
+        res.redirect('/add-type');
     } catch (error) {
         console.log(error);
     }
