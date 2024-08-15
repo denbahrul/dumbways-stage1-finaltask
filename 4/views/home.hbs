@@ -4,47 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/assets/styles/output.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0a1c7b5f76.js" crossorigin="anonymous"></script>
     <title>Wiki Games</title>
 </head>
 <body class="bg-slate-900 font-mono">
     {{!-- Navbar --}}
     <nav class="flex justify-between max-w-screen-lg m-auto px-8 py-5">
         <a href="/" class="text-orange-500 font-bold text-2xl">wiki<strong class="text-white">Games</strong></a>
-        <a href="/login" class="bg-orange-500 text-white px-8 py-1 rounded-md">Login</a>
+        {{#if isLogin}}
+            <a href="/logout" class=" text-orange-500 font-semibold text-xl"><i class="fa-solid fa-arrow-right-to-bracket"></i> Logout</a>
+        {{else}}
+            <a href="/login" class=" text-orange-500 font-semibold text-xl"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+        {{/if}}
     </nav>
+
     {{!-- Content --}}
-    <div class="max-w-screen-lg m-auto p-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        <div class="w-full p-2.5 bg-slate-800 rounded-md">
-            <img class="object-cover h-80 w-full" src="/assets/images/character1.jpg">
-            <p class="text-white mt-2 text-xl font-semibold">Name</p>
-            <p class="text-green-500 mb-4 mt-1">Type</p>
-            <a class="cursor-pointer">
-                <div class="bg-orange-500 text-white px-8 py-1 rounded-md w-full">
-                    <p class="text-center">Detail</p>
-                </div>
-            </a>
-        </div>
-        <div class="w-full p-2.5 bg-slate-800 rounded-md">
-            <img class="object-cover h-80 w-full" src="/assets/images/character1.jpg">
-            <p class="text-white mt-2 text-xl font-semibold">Name</p>
-            <p class="text-green-500 mb-4 mt-1">Type</p>
-            <a class="cursor-pointer">
-                <div class="bg-orange-500 text-white px-8 py-1 rounded-md w-full">
-                    <p class="text-center">Detail</p>
-                </div>
-            </a>
-        </div>
-        <div class="w-full p-2.5 bg-slate-800 rounded-md">
-            <img class="object-cover h-80 w-full" src="/assets/images/character1.jpg">
-            <p class="text-white mt-2 text-xl font-semibold">Name</p>
-            <p class="text-green-500 mb-4 mt-1">Type</p>
-            <a class="cursor-pointer">
-                <div class="bg-orange-500 text-white px-8 py-1 rounded-md w-full">
-                    <p class="text-center">Detail</p>
-                </div>
-            </a>
-        </div>
-        
+    <div class="max-w-screen-lg m-auto p-8">
+        {{#if isLogin}}
+            <div class="mb-8 flex gap-2 justify-end">
+                <a href="/add-hero" class="bg-orange-500 text-white px-8 py-1 rounded-md">Add Hero</a>
+                <a href="/add-type" class="bg-orange-500 text-white px-8 py-1 rounded-md">Add Type</a>
+            </div>
+        {{/if}}
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+        {{#each data}}
+            <div class="w-full p-2.5 bg-slate-800 rounded-md">
+                <img class="object-cover h-80 w-full rounded-sm" src="/upload-files/{{this.photo}}">
+                <p class="text-white mt-2 text-xl font-semibold">{{this.name}}</p>
+                <p class="text-green-500 mb-4 mt-1">{{this.type}}</p>
+                <a href="/hero-detail/{{this.id}}" class="cursor-pointer">
+                    <div class="bg-orange-500 text-white px-8 py-1 rounded-md w-full">
+                        <p class="text-center">Detail</p>
+                    </div>
+                </a>
+            </div>
+        {{/each}}
+            {{!-- <div class="w-full p-2.5 bg-slate-800 rounded-md">
+                <img class="object-cover h-80 w-full" src="/assets/images/character1.jpg">
+                <p class="text-white mt-2 text-xl font-semibold">Name</p>
+                <p class="text-green-500 mb-4 mt-1">Type</p>
+                <a class="cursor-pointer">
+                    <div class="bg-orange-500 text-white px-8 py-1 rounded-md w-full">
+                        <p class="text-center">Detail</p>
+                    </div>
+                </a>
+            </div>
+            <div class="w-full p-2.5 bg-slate-800 rounded-md">
+                <img class="object-cover h-80 w-full" src="/assets/images/character1.jpg">
+                <p class="text-white mt-2 text-xl font-semibold">Name</p>
+                <p class="text-green-500 mb-4 mt-1">Type</p>
+                <a class="cursor-pointer">
+                    <div class="bg-orange-500 text-white px-8 py-1 rounded-md w-full">
+                        <p class="text-center">Detail</p>
+                    </div>
+                </a>
+            </div>
+            <div class="w-full p-2.5 bg-slate-800 rounded-md">
+                <img class="object-cover h-80 w-full" src="/assets/images/character1.jpg">
+                <p class="text-white mt-2 text-xl font-semibold">Name</p>
+                <p class="text-green-500 mb-4 mt-1">Type</p>
+                <a class="cursor-pointer">
+                    <div class="bg-orange-500 text-white px-8 py-1 rounded-md w-full">
+                        <p class="text-center">Detail</p>
+                    </div>
+                </a>
+            </div> --}}
+        </div>        
     </div>
     
 </body>

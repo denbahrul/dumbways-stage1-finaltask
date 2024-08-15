@@ -14,14 +14,14 @@
     {{!-- Content --}}
     <div class="max-w-screen-lg m-auto p-8">
         <h1 class="text-white text-center text-lg font-semibold mt-4">LOGIN TO YOUR ACCOUNT</h1>
-        <form class="m-auto max-w-md mt-10">
+        <form class="m-auto max-w-md mt-10" action="/login" method="POST">
             <div class="mb-5">
                 <label class="block text-white text-md mb-1" for="emailInput">Email</label>
-                <input class="rounded-md w-full p-1.5" id="emailInput" name="email" type="email">
+                <input class="rounded-md w-full p-1.5" id="emailInput" name="email" type="email" required>
             </div>
             <div class="mb-12">
                 <label class="block text-white text-md mb-1" for="passwordInput">Password</label>
-                <input class="rounded-md w-full p-1.5" id="passwordInput" name="password" type="password">
+                <input class="rounded-md w-full p-1.5" id="passwordInput" name="password" type="password" required>
             </div>
             <button class="bg-orange-500 text-white py-2 rounded-md w-full">Login</button>
         </form>

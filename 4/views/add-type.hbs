@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/assets/styles/output.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/0a1c7b5f76.js" crossorigin="anonymous"></script>
+    <title>Wiki Games</title>
+</head>
+<body class="bg-slate-900 font-mono">
+    {{!-- Navbar --}}
+    <nav class="flex justify-between max-w-screen-lg m-auto px-8 py-5">
+        <a href="/" class="text-orange-500 font-bold text-2xl">wiki<strong class="text-white">Games</strong></a>
+        {{#if isLogin}}
+            <a href="/logout" class=" text-orange-500 font-semibold text-xl"><i class="fa-solid fa-arrow-right-to-bracket"></i> Logout</a>
+        {{else}}
+            <a href="/login" class=" text-orange-500 font-semibold text-xl"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+        {{/if}}
+    </nav>
+
+    {{!-- Content --}}
+    <div class="max-w-screen-lg m-auto p-8">
+        <h1 class="text-white text-center text-lg font-semibold mt-4">ADD TYPE OF HERO</h1>
+        <form class="m-auto max-w-md mt-10" action="/add-type" method="POST">
+            <div class="mb-8">
+                <label class="block text-white text-md mb-1" for="typeNameInput">Type Name</label>
+                <input class="rounded-md w-full p-1.5" id="typeNameInput" name="typeName" type="text" required>
+            </div>
+            <button type="submit" class="bg-orange-500 text-white py-2 rounded-md w-full">Add Type</button>
+        </form>
+        <div class="mt-24 m-auto max-w-md">
+            <p class="text-white text-center text-lg font-semibold my-4">TYPE LIST</p>
+            {{#each data}}
+            <div class="w-full py-3 px-4 bg-slate-800 rounded-md mb-3 flex justify-between">
+                <p class="text-white">{{this.name}}</p>
+                <div class="flex gap-2">
+                    <a href="/edit-type/{{this.id}}" class="bg-orange-500 text-white text-sm py-1 px-3 rounded-md">Edit</a>
+                    <a href="/delete-type/{{this.id}}" class="bg-red-500 text-white text-sm py-1 px-3 rounded-md">Delete</a>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</body>
+</html>
