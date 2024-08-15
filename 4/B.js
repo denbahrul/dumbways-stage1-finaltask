@@ -30,29 +30,28 @@ function renderLogin(req, res) {
     res.render('login');
 };
 
-async function renderRegister(req, res) {
+function renderRegister(req, res) {
     res.render('register');
 };
 
 // Function logic
-function register(res, req) {
-    console.log(req);
-    // try {
-    //     console.log(req.body);
+async function register(req, res) {
+    try {
+        console.log(req.body);
 
-    //     // const { email, username, password } = req.body;
+        const { email, username, password } = req.body;
 
-    //     // const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    //     // const query = `INSERT INTO users_tb ( email, username, password ) 
-    //     //                 VALUES ('${email}','${username}','${hashedPassword}')`;
+        const query = `INSERT INTO users_tb ( email, username, password ) 
+                        VALUES ('${email}','${username}','${hashedPassword}')`;
 
-    //     // await sequelize.query(query, { type: QueryTypes.INSERT });
+        await sequelize.query(query, { type: QueryTypes.INSERT });
     
-    //     res.redirect('/login');
-    // } catch (error) {
-    //     console.log(error);
-    // }
+        res.redirect('/login');
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
