@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 const { Sequelize, QueryTypes } = require('sequelize');
 const config = require('./config/config.json');
 
@@ -14,16 +15,25 @@ app.set("views", "views");
 
 app.use("/assets", express.static("assets")); //Akses file statis
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'ytta',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge:360000, secure: false },
+}))
 
 app.get('/', renderHome);
 app.get('/login', renderLogin);
 app.get('/register', renderRegister);
 
 app.post('/register', register);
+app.post('/login', login);
 
 // Function Render 
 function renderHome(req, res) {
-    res.render('home');
+    res.render('home', {
+        isLogin: req.session.isLogin
+    });
 };
 
 function renderLogin(req, res) {
@@ -50,6 +60,43 @@ async function register(req, res) {
     
         res.redirect('/login');
     } catch (error) {
+        console.log(error);
+    }
+}
+
+async function login(req, res) {
+    try {
+        const { email, password } = req.body;
+
+        const query = `SELECT * FROM users_tb WHERE email = '${email}'`;
+        const user = await sequelize.query(query, {type: QueryTypes.SELECT});
+
+        console.log(user);
+
+        if (user.length == 0) {
+            console.log('Email belum terdaftar');
+            return res.redirect('/login');
+        } 
+        
+        const isPasswordValid = await bcrypt.compare(password, user[0].password);
+        
+        if (!isPasswordValid) {
+            console.log('Password tidak sesuai');
+            return res.redirect('/login');
+        } 
+
+        req.session.isLogin = true;    
+        req.session.user = {
+            id : user[0].id,
+            username : user[0].username,
+        };
+
+        console.log(req.session.isLogin);
+
+        console.log('Login Berhasil');
+        res.redirect('/');
+    }
+    catch (error) {
         console.log(error);
     }
 }
