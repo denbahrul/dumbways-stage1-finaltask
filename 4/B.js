@@ -61,7 +61,8 @@ function renderRegister(req, res) {
 // crud
 async function renderHome(req, res) {
     try {
-        const query = `SELECT * FROM heroes_tb`;
+        const query = `SELECT heroes_tb.*, type_tb.name AS type FROM heroes_tb
+                        LEFT JOIN type_tb ON heroes_tb.type_id=type_tb.id`;
         const heroes = await sequelize.query(query, {type : QueryTypes.SELECT});
 
         res.render('home', {
@@ -100,7 +101,8 @@ async function renderDetail(req, res) {
         const id = req.params.hero_id;
         const { isLogin, user } = req.session;
 
-        const query = `SELECT * FROM heroes_tb WHERE id=${id}`;
+        const query = `SELECT heroes_tb.*, type_tb.name AS type FROM heroes_tb
+        LEFT JOIN type_tb ON heroes_tb.type_id=type_tb.id WHERE heroes_tb.id=${id}`;
         const hero = await sequelize.query(query, { type: QueryTypes.SELECT});
 
         res.render("hero-detail", {
