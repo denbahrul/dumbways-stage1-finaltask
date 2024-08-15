@@ -31,7 +31,7 @@ app.get('/add-hero', renderAddHero);
 app.get('/add-type', renderAddType);
 app.get('/hero-detail/:hero_id', renderDetail);
 app.get('/edit-hero/:hero_id', renderEditHero);
-app.get('/edit-type/:type_id', renderEditHero);
+app.get('/edit-type/:type_id', renderEditType);
 
 app.post('/register', register);
 app.post('/login', login);
@@ -127,7 +127,7 @@ async function renderEditHero(req, res) {
     isLogin ? res.render('edit-hero', { isLogin, user, type: heroType, data: hero[0] }) : res.redirect('/login') ;
 };
 
-async function renderEditHero(req, res) {
+async function renderEditType(req, res) {
     const { isLogin, user} = req.session;
     const id = req.params.type_id;
 
