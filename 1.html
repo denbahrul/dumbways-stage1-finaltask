@@ -29,7 +29,7 @@
             const numPrime = [];
 
             let result = ""; 
-            for (num = 1; numPrime.length < row; num++) {
+            for (num = 1; numPrime.length < row*10; num++) {
                 let devider = 0;
                 for ( i=1; i<=num; i++) {
                     if (num % i == 0) {
@@ -41,6 +41,7 @@
                     result += `${num} - ${numPrime} \n`
                 }
             }
+            
             let string = ""
             let index = 0;
             for ( let i = 1; i <= row; i++ ) {
@@ -51,10 +52,10 @@
                 string += '\n';
             };
             return string;
-            console.log(result);
+    
         }
 
-        const result = draw(7);
+        const result = draw(10);
         console.log(result);
 
         // const isPrime = (num) => {
