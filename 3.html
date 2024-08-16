@@ -7,7 +7,44 @@
 </head>
 <body>
     <script>
-        
+        function bubbleSort(numArray, n) {
+            if (n == 1)
+            return;
+
+            var count = 0;
+            for (var i = 0; i < n-1; i++)
+                if (numArray[i] > numArray[i+1]) {
+                    var temp = numArray[i];
+                    numArray[i] = numArray[i+1];
+                    numArray[i+1] = temp;
+                    count++;
+                }
+
+            if (count == 0)
+            return;
+
+            bubbleSort(numArray, n-1);
+        }
+        const numArray = [2, 24, 32, 22, 31, 100, 56, 21, 99, 7, 5, 37, 97, 25, 13, 11];
+        bubbleSort(numArray, numArray.length);
+        console.log("Sorted array : ");
+        for(var i = 0; i < numArray.length; i++) { 
+        console.log(numArray[i] + " "); 
+        }
+        console.log("---------------------------------");
+        console.log("Ganjil : ");
+        for(var i = 0; i < numArray.length; i++) {
+            if (numArray[i]%2 == 1) {
+                console.log(numArray[i] + " ");
+            }
+        } 
+        console.log("---------------------------------");
+        console.log("Genap : ");
+        for(var i = 0; i < numArray.length; i++) {
+            if (numArray[i]%2 == 0) {
+                console.log(numArray[i] + " ");
+            }
+        } 
     </script>
 </body>
 </html>
