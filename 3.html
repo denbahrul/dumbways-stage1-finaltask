@@ -11,17 +11,12 @@
             if (n == 1)
             return;
 
-            var count = 0;
             for (var i = 0; i < n-1; i++)
                 if (numArray[i] > numArray[i+1]) {
                     var temp = numArray[i];
                     numArray[i] = numArray[i+1];
                     numArray[i+1] = temp;
-                    count++;
                 }
-
-            if (count == 0)
-            return;
 
             bubbleSort(numArray, n-1);
         }
