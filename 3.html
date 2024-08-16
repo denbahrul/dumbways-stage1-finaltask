@@ -8,20 +8,31 @@
 <body>
     <script>
         function bubbleSort(numArray, n) {
+            const array = [numArray]
             if (n == 1)
             return;
-
-            for (var i = 0; i < n-1; i++)
+            for ( let x = n; n > 0; n-- ) {
+                for (var i = 0; i < n-1; i++)
                 if (numArray[i] > numArray[i+1]) {
                     var temp = numArray[i];
                     numArray[i] = numArray[i+1];
                     numArray[i+1] = temp;
                 }
+            }
 
-            bubbleSort(numArray, n-1);
+            return
+            // for (var i = 0; i < n-1; i++)
+            //     if (numArray[i] > numArray[i+1]) {
+            //         var temp = numArray[i];
+            //         numArray[i] = numArray[i+1];
+            //         numArray[i+1] = temp;
+            //     }
+
+            // bubbleSort(numArray, n-1);
         }
         const numArray = [2, 24, 32, 22, 31, 100, 56, 21, 99, 7, 5, 37, 97, 25, 13, 11];
         bubbleSort(numArray, numArray.length);
+        console.log(numArray);
         console.log("Sorted array : ");
         for(var i = 0; i < numArray.length; i++) { 
         console.log(numArray[i] + " "); 
