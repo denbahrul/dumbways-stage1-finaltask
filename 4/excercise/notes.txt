@@ -1,0 +1,5 @@
+-- Tailwind CLI build proces --
+npx tailwindcss -i ./assets/styles/input.css -o ./assets/styles/output.css --watch
+
+-- Connect postgres database CLI --
+psql --host=localhost --port=5432 --dbname=wikigames --username=postgres --password
