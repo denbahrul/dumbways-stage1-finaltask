@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/assets/styles/output.css" rel="stylesheet">
+    <title>Wiki Games</title>
+</head>
+<body class="bg-slate-900 font-mono">
+    {{!-- Navbar --}}
+    <nav class="flex justify-between max-w-screen-lg m-auto px-8 py-5">
+        <a href="/" class="text-orange-500 font-bold text-2xl">wiki<strong class="text-white">Games</strong></a>
+    </nav>
+    {{!-- Content --}}
+    <div class="max-w-screen-lg m-auto p-8">
+        <h1 class="text-white text-center text-lg font-semibold mt-4">REGISTER YOUR ACCOUNT</h1>
+        <form class="m-auto max-w-md mt-10" action="/register" method="POST">
+            <div class="mb-5">
+                <label class="block text-white text-md mb-1" for="emailInput">Email</label>
+                <input class="rounded-md w-full p-1.5" id="emailInput" name="email" type="email" required>
+            </div>
+            <div class="mb-5">
+                <label class="block text-white text-md mb-1" for="usernameInput">Username</label>
+                <input class="rounded-md w-full p-1.5" id="usernameInput" name="username" type="text" required>
+            </div>
+            <div class="mb-12">
+                <label class="block text-white text-md mb-1" for="passwordInput">Password</label>
+                <input class="rounded-md w-full p-1.5" id="passwordInput" name="password" type="password" required>
+            </div>
+            <button type="submit" class="bg-orange-500 text-white py-2 rounded-md w-full">Register</button>
+        </form>
+        <p class="text-white text-center mt-12">Already have an account? <a class="text-orange-500" href="/login">Login</a></p>
+    </div>
+</body>
+</html>
