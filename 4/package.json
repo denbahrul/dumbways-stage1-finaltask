@@ -2,10 +2,10 @@
   "name": "4",
   "version": "1.0.0",
   "description": "final task soal nomor 4",
-  "main": "B.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon B.js"
+    "start": "nodemon index.js"
   },
   "author": "bahrul",
   "license": "ISC",
